@@ -65,43 +65,54 @@ def publish_tweet(message):
     print("Send")
     time.sleep(20) # Avoid request limit.
 
-def switch_case(option):
-    if option == "1":
-        print("You selected option 1.")
-        print("")
-        reply_mentions()
-    elif option == "2":
-        print("You selected option 2.")
-        print("")
-        screen_name = str(input("Enter the user name: "))
-        get_user_data(screen_name)
-    elif option == "3":
-        print("You selected option 3.")
-        print("")
-        message  = str(input("Enter the message to send: "))
-        publish_tweet(message)
-    elif option == "4":
-        print("You selected option 4.")
-        print("")
-        get_api_keys()
+
+def clear_screen():
+    """Clears the screen based on the operating system."""
+    if os.name == 'posix':  # Linux and macOS
+        _ = os.system('clear')
+    elif os.name == 'nt':  # Windows
+        _ = os.system('cls')
     else:
-        print("Invalid option.")
+        print("Unable to detect a compatible operating system for screen clearing.")
+
+def main():
+    validation = False
+    clear_screen()
+    print("")
+    print("Developed by AbelDev")
+    print("")
+    while validation == False:
+        print("Select option: ")
+        print("1-) Reply to mentions")
+        print("2-) Get public data from a user")
+        print("3-) Post a tweet (text only)")
+        print("4-) Configure API keys")
+        print("5-) Close the app")
+        option = str(input(">>> "))
+        match option:
+            case '1':
+                print("You selected option 1.")
+                print("")
+                reply_mentions()
+            case '2':
+                print("You selected option 2.")
+                print("")
+                screen_name = str(input("Enter the user name: "))
+                get_user_data(screen_name)
+            case '3':
+                print("You selected option 3.")
+                print("")
+                message  = str(input("Enter the message to send: "))
+                publish_tweet(message)
+            case '4':
+                print("You selected option 4.")
+                print("")
+                get_api_keys()
+            case '5':
+                print("Good bye¡")
+                validation = True
+            case _:
+                print("Invalid option.")
 
 # Run the application
-print("")
-print("Developed by AbelDev")
-print("")
-while True:
-    print("Select option: ")
-    print("1-) Reply to mentions")
-    print("2-) Get public data from a user")
-    print("3-) Post a tweet (text only)")
-    print("4-) Configure API keys")
-    print("5-) Close the app")
-    option = str(input(">>> "))
-
-    if option != "5":
-        switch_case(option)
-    else:
-        print("Exiting the app")
-        break
+main()
