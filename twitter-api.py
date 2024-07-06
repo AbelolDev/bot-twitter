@@ -8,6 +8,7 @@
 
 import tweepy
 import time
+import os
 
 # credentials
 consumer_key = 'consumer_key'
